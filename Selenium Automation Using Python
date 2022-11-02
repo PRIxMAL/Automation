@@ -1,0 +1,34 @@
+from selenium import webdriver
+
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Chrome()
+
+driver.get("https://admin-demo.nopcommerce.com/login")
+
+driver.implicitly_wait(15)
+
+driver.find_element(By.XPATH, "//body[1]/div[6]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/form[1]/div[2]/div[1]/input[1]").clear()
+driver.implicitly_wait(15)
+
+#used clear() because textbox contain pre-added information, so you have to clear it first
+
+driver.find_element(By.XPATH, "//body[1]/div[6]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/form[1]/div[2]/div[1]/input[1]").send_keys("admin@yourstore.com")
+driver.implicitly_wait(15)
+
+driver.find_element(By.XPATH,"//body[1]/div[6]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/form[1]/div[2]/div[2]/input[1]").clear()
+driver.implicitly_wait(15)
+
+driver.find_element(By.XPATH,"//body[1]/div[6]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/form[1]/div[2]/div[2]/input[1]").send_keys("admin")
+driver.implicitly_wait(15)
+
+driver.find_element(By.XPATH, "//body[1]/div[6]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/form[1]/div[3]/button[1]").click()
+# Getting current URL source code
+
+get_title = driver.title
+driver.implicitly_wait(15)
+
+# Printing the title of this URL
+print(get_title)
+driver.implicitly_wait(15)
+
