@@ -1,0 +1,35 @@
+# Needed libs
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+# We create the driver
+
+driver = webdriver.Chrome()
+driver.maximize_window()
+# We navigate to the url
+url = 'https://opensource-demo.orangehrmlive.com/web/index.php/auth/login'
+driver.get(url)
+
+# We make login
+WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.NAME, "username"))).send_keys("Admin")
+WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.NAME, "password"))).send_keys("admin123")
+WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//button"))).click()
+
+# Navigate to desired section
+WebDriverWait(driver, 20).until(
+    EC.presence_of_element_located((By.XPATH, "//a[@href='/web/index.php/admin/viewAdminModule']"))).click()
+
+# Get the requirements
+total_users = len(WebDriverWait(driver, 20).until(
+    EC.presence_of_all_elements_located((By.XPATH, "//div[@class='oxd-table-body']//div[@role='row']"))))
+total_enabled_users = len(WebDriverWait(driver, 20).until(EC.presence_of_all_elements_located(
+    (By.XPATH, "//div[@class='oxd-table-body']//div[@role='row']/div[5]/*[text()='Enabled']"))))
+total_disabled_users = len(WebDriverWait(driver, 20).until(EC.presence_of_all_elements_located(
+    (By.XPATH, "//div[@class='oxd-table-body']//div[@role='row']/div[5]/*[text()='Disabled']"))))
+print(f"Total users: {total_users}")
+print(f"Total enabled users: {total_enabled_users}")
+print(f"Total disabled users: {total_disabled_users}")
+
+driver.quit()
